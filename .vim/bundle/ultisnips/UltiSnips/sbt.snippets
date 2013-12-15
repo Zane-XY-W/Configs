@@ -1,7 +1,12 @@
-snippet scalatest "add scalatest dependency" !b
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.0" % "test"
-endsnippet
-
 snippet lib "library dependencies" !b
 libraryDependencies ++= Seq($1)
 endsnippet
+
+snippet scalatest "add scalatest dependency" !b
+"org.scalatest" %% "scalatest" % "2.0" % "test"
+endsnippet
+
+snippet scalamock "add scalamock dependency" !b
+"org.scalamock" %% "scalamock-scalatest-support" % "3.+" % "test"
+endsnippet
+

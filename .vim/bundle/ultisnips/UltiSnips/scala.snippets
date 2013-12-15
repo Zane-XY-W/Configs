@@ -1,5 +1,11 @@
 snippet ist "import scalatest" !b
 import org.scalatest._
+import Matchers._
+endsnippet
 
+snippet tag "Description" !b
+import org.scalatest.Tag
+object Hot extends Tag("hot")
+object Codl extends Tag("cold")
 endsnippet
 
