@@ -27,6 +27,7 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jiangmiao/auto-pairs'
+Bundle 'rking/ag.vim'
 
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -54,15 +55,22 @@ let g:pymode_folding = 0
 
 " scala
 Bundle 'derekwyatt/vim-scala'
+" sbt filetype
+Bundle 'derekwyatt/vim-sbt'
+
+"snippets
+Bundle 'SirVer/ultisnips'
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips/UltiSnips"
 
 " perl
 " Bundle 'perl-support.vim'
 " filetype plugin indent on     " required!
 
 " html and js
-Bundle 'Chiel92/vim-autoformat'
-Bundle 'einars/js-beautify'
-Bundle "pangloss/vim-javascript"
+"Bundle 'Chiel92/vim-autoformat'
+"Bundle 'einars/js-beautify'
+"Bundle "pangloss/vim-javascript"
 
 " haskell
 Bundle 'lukerandall/haskellmode-vim'
@@ -97,5 +105,7 @@ set shiftwidth=2
 " make tab in Haskell 2 spaces wide
 set smarttab
 set autoread 
+"solve git can't hanle single quote on path problem, seems only works if you enter manually
+"set noshellslash
 
-au BufEnter *.scala setl formatprg=D:\repo\ivy\cache\org.scalariform\scalariform_2.10\jars\scalariform_2.10-0.1.4.jar\ --stdin\ --stdout
+"au BufEnter *.scala setl formatprg=D:\repo\ivy\cache\org.scalariform\scalariform_2.10\jars\scalariform_2.10-0.1.4.jar\ --stdin\ --stdout
