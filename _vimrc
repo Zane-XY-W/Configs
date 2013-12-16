@@ -62,6 +62,8 @@ Bundle 'derekwyatt/vim-sbt'
 Bundle 'SirVer/ultisnips'
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips/UltiSnips"
+let g:UltiSnipsEditSplit="horizontal"
+cabbrev es UltiSnipsEdit
 
 " perl
 " Bundle 'perl-support.vim'
