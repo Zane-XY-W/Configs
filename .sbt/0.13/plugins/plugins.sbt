@@ -10,4 +10,4 @@ addSbtPlugin("me.lessis" % "np" % "0.2.0")
 addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.2.1")
 
 //https://github.com/dscleaver/sbt-quickfix
-addSbtPlugin("com.dscleaver.sbt" % "sbt-quickfix" % "0.4.1-LOCAL")
+//addSbtPlugin("com.dscleaver.sbt" % "sbt-quickfix" % "0.4.1-LOCAL")
