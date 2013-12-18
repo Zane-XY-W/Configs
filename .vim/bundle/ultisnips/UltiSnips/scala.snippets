@@ -16,3 +16,18 @@ endsnippet
 snippet iec "ExecutionContext Implicits" !b
 import scala.concurrent.ExecutionContext.Implicits.global
 endsnippet
+
+snippet freespec "freespec template" !b
+package ${1:name}
+import org.scalatest._
+import Matchers._
+
+class ${2:classname} extends FreeSpec {
+  "A $3" - {
+    "should $4" in {
+      $0
+    }
+  }
+}
+
+endsnippet

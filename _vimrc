@@ -10,6 +10,9 @@ map <C-H> <C-W>h<C-W>_
 map zl zL
 map zh zH
 
+"jump to the import section
+"map <A-I> ?^import<space><cr>
+
 " vundle settings
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -23,12 +26,14 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
+cabbrev NE NERDTree
 Bundle 'tomtom/tcomment_vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'rking/ag.vim'
-
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 	\ 'file': '\v\.(class|jar|exe|so|dll|png|zip|gz|tar|)$',
