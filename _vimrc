@@ -72,7 +72,6 @@ cabbrev es UltiSnipsEdit
 
 " perl
 " Bundle 'perl-support.vim'
-" filetype plugin indent on     " required!
 
 " html and js
 "Bundle 'Chiel92/vim-autoformat'
@@ -80,11 +79,27 @@ cabbrev es UltiSnipsEdit
 "Bundle "pangloss/vim-javascript"
 
 " haskell
+Bundle "Shougo/vimproc.vim"
 Bundle 'lukerandall/haskellmode-vim'
+let g:haddock_browser = "D:/apps/Mozilla Firefox/firefox.exe"
+let g:haddock_browser_callformat = "%s %s"
+let g:haddock_docdir = substitute( $APPDATA."/cabal/doc", "\\", "/", "g" )
+au BufEnter *.hs compiler ghc
+
+Bundle "eagletmt/ghcmod-vim"
+autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+map <a-=> :GhcModType<CR>
+map <a--> :GhcModTypeClear<CR>
+
+Bundle "dag/vim2hs"
+
+Bundle "bling/vim-airline"
+
 " GUI Settings 
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
 	set guioptions-=T           " remove the toolbar
+	set guioptions-=m	    " remove menu
 	set lines=30                " 40 lines of text instead of 24,
 	if has("gui_gtk2")
 		set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
