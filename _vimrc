@@ -1,5 +1,4 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+set nocompatible               " be iMproved filetype off                   " required!
 
 " Easier moving in tabs and windows
 map <C-J> <C-W>j<C-W>_
@@ -81,9 +80,10 @@ cabbrev es UltiSnipsEdit
 " haskell
 Bundle "Shougo/vimproc.vim"
 Bundle 'lukerandall/haskellmode-vim'
-let g:haddock_browser = "D:/apps/Mozilla Firefox/firefox.exe"
-let g:haddock_browser_callformat = "%s %s"
-let g:haddock_docdir = substitute( $APPDATA."/cabal/doc", "\\", "/", "g" )
+let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
+let g:haddock_indexfiledir = "~/.vim/"
+let g:haddock_browser_callformat = '%s "%s"'
+let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
 au BufEnter *.hs compiler ghc
 
 Bundle "eagletmt/ghcmod-vim"
