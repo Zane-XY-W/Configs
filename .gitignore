@@ -9,4 +9,3 @@
 !.vim/bundle/ultisnips/UltiSnips/sbt.snippets
 !.sbt/0.13/build.sbt
 !.sbt/0.13/plugins/plugins.sbt
-*.DS_Store

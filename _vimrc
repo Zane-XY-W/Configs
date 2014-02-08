@@ -1,3 +1,84 @@
+" Environment {
+
+    " Identify platform {
+        silent function! OSX()
+            return has('macunix')
+        endfunction
+        silent function! LINUX()
+            return has('unix') && !has('macunix') && !has('win32unix')
+        endfunction
+        silent function! WINDOWS()
+            return  (has('win16') || has('win32') || has('win64'))
+        endfunction
+    " }
+
+    " Basics {
+        set nocompatible        " Must be first line
+        if !WINDOWS()
+            set shell=/bin/sh
+        endif
+    " }
+
+    " Windows Compatible {
+        " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
+        " across (heterogeneous) systems easier.
+        if WINDOWS()
+          set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+        endif
+    " }
+
+" }
+" GUI Settings {
+
+    " GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+        set guioptions-=T           " Remove the toolbar
+        set lines=40                " 40 lines of text instead of 24
+        if !exists("g:spf13_no_big_font")
+            if LINUX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+            elseif OSX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+            elseif WINDOWS() && has("gui_running")
+                set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+            endif
+        endif
+    else
+        if &term == 'xterm' || &term == 'screen'
+            set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        endif
+        "set term=builtin_ansi       " Make arrow and other keys work
+    endif
+
+" }
+
+" General {
+
+    set background=light " Assume a dark background
+    " if !has('gui')
+        "set term=$TERM          " Make arrow and other keys work
+    " endif
+    filetype plugin indent on   " Automatically detect file types.
+    syntax on                   " Syntax highlighting
+    set mouse=a                 " Automatically enable mouse usage
+    set mousehide               " Hide the mouse cursor while typing
+    scriptencoding utf-8
+
+    " if has('clipboard')
+    "     if LINUX()   " On Linux use + register for copy-paste
+    "         set clipboard=unnamedplus
+    "     else         " On mac and Windows, use * register for copy-paste
+    "         set clipboard=unnamed
+    "     endif
+    " endif
+
+    "set autowrite                       " Automatically write a file when leaving a modified buffer
+    set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+    set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+    set virtualedit=onemore             " Allow for cursor beyond last character
+    set history=1000                    " Store a ton of history (default is 20)
+" }
+
 set nocompatible               " be iMproved filetype off                   " required!
 
 " Easier moving in tabs and windows
@@ -25,26 +106,55 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
-cabbrev NE NERDTree
+" NerdTree {
+    cabbrev NE NERDTree
+    map <C-e> <plug>NERDTreeTabsToggle<CR>
+    map <leader>e :NERDTreeFind<CR>
+    nmap <leader>nt :NERDTreeFind<CR>
+
+    let NERDTreeShowBookmarks=1
+    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+    let NERDTreeChDirMode=0
+    let NERDTreeQuitOnOpen=1
+    let NERDTreeMouseMode=2
+    let NERDTreeShowHidden=1
+    let NERDTreeKeepTreeInNewTab=1
+    let g:nerdtree_tabs_open_on_gui_startup=0
+" }
 Bundle 'tomtom/tcomment_vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
+" ctrlp {
+      let g:ctrlp_working_path_mode = 'ra'
+      nnoremap <silent> <D-t> :CtrlP<CR>
+      nnoremap <silent> <D-r> :CtrlPMRU<CR>
+      let g:ctrlp_custom_ignore = {
+	  \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+	  \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+      " On Windows use "dir" as fallback command.
+      if WINDOWS()
+	  let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+      elseif executable('ag')
+	  let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+      elseif executable('ack')
+	  let s:ctrlp_fallback = 'ack %s --nocolor -f'
+      else
+	  let s:ctrlp_fallback = 'find %s -type f'
+      endif
+      let g:ctrlp_user_command = {
+	  \ 'types': {
+	      \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+	      \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+	  \ },
+	  \ 'fallback': s:ctrlp_fallback
+      \ }
+  "}
+
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
-let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(class|jar|exe|so|dll|png|zip|gz|tar|)$',
-	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-	\ }
-" wildignore
-" Linux/MacOSX
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
-" Windows
-set wildignore+=*\\tmp\\*,*\\target\\*,*.swp,*.zip,*.exe,*.png,*.jpg
-let g:ctrlp_root_markers = ['*.sbt','project']
-let g:ctrlp_working_path_mode = 'ra'
 
 " indent script tag inside html correctly
 Bundle 'vim-scripts/JavaScript-Indent'
@@ -84,7 +194,7 @@ let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
 let g:haddock_indexfiledir = "~/.vim/"
 let g:haddock_browser_callformat = '%s "%s"'
 let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
-au BufEnter *.hs compiler ghc
+"au BufEnter *.hs compiler ghc
 
 Bundle "eagletmt/ghcmod-vim"
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
@@ -93,41 +203,148 @@ map <a--> :GhcModTypeClear<CR>
 
 Bundle "dag/vim2hs"
 
+Bundle "nathanaelkane/vim-indent-guides"
+" indent_guides {
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_enable_on_vim_startup = 1
+" }
+
+
 Bundle "bling/vim-airline"
+" vim-airline {
+    " Set configuration options for the statusline plugin vim-airline.
+    " Use the powerline theme and optionally enable powerline symbols.
+    " To use the symbols , , , , , , and .in the statusline
+    " segments add the following to your .vimrc.before.local file:
+    "   let g:airline_powerline_fonts=1
+    " If the previous symbols do not render for you then install a
+    " powerline enabled font.
 
-" GUI Settings 
-" GVIM- (here instead of .gvimrc)
-if has('gui_running')
-	set guioptions-=T           " remove the toolbar
-	set guioptions-=m	    " remove menu
-	set lines=30                " 40 lines of text instead of 24,
-	if has("gui_gtk2")
-		set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-	else
-		set guifont=Consolas:h11
-	endif
-	if has('gui_macvim')
-		set transparency=5          " Make the window slightly transparent
-	endif
-else
-	if &term == 'xterm' || &term == 'screen'
-		set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-	endif
-	"set term=builtin_ansi       " Make arrow and other keys work
-endif
+    " See `:echo g:airline_theme_map` for some more choices
+    " Default in terminal vim is 'dark'
+    if !exists('g:airline_theme')
+	let g:airline_theme = 'solarized'
+    endif
+    if !exists('g:airline_powerline_fonts')
+	" Use the default set of separators with a few customizations
+	let g:airline_left_sep='›'  " Slightly fancier than '>'
+	let g:airline_right_sep='‹' " Slightly fancier than '<'
+    endif
+" }
 
-color solarized " color setting after bundle initialized
-syntax on
-filetype plugin indent on
-set nowrap
-scriptencoding utf-8
-set encoding=utf-8
-set backspace=2 " make backspace work like most other apps
-set shiftwidth=2
-" make tab in Haskell 2 spaces wide
-set smarttab
-set autoread 
-"solve git can't hanle single quote on path problem, seems only works if you enter manually
-"set noshellslash
+Bundle "benmills/vimux"
 
-"au BufEnter *.scala setl formatprg=D:\repo\ivy\cache\org.scalariform\scalariform_2.10\jars\scalariform_2.10-0.1.4.jar\ --stdin\ --stdout
+" GUI Settings {
+
+    " GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+        set guioptions-=T           " Remove the toolbar
+        set lines=40                " 40 lines of text instead of 24
+        if !exists("g:spf13_no_big_font")
+            if LINUX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+            elseif OSX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+            elseif WINDOWS() && has("gui_running")
+                set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+            endif
+        endif
+        set noerrorbells visualbell t_vb=   "disable beep
+        autocmd GUIEnter * set visualbell t_vb=
+    else
+        if &term == 'xterm' || &term == 'screen'
+            set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        endif
+        "set term=builtin_ansi       " Make arrow and other keys work
+    endif
+
+" }
+
+" Vim UI {
+
+    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+        let g:solarized_termcolors=256
+        let g:solarized_termtrans=1
+        let g:solarized_contrast="normal"
+        let g:solarized_visibility="normal"
+        color solarized             " Load a colorscheme
+    endif
+
+    set tabpagemax=15               " Only show 15 tabs
+    set showmode                    " Display the current mode
+
+    set cursorline cursorcolumn     " Highlight current line
+
+    highlight clear SignColumn      " SignColumn should match background
+    highlight clear LineNr          " Current line number row will have same background color in relative mode
+    let g:CSApprox_hook_post = ['hi clear SignColumn']
+    "highlight clear CursorLineNr    " Remove highlight color from current line number
+
+    if has('cmdline_info')
+        set ruler                   " Show the ruler
+        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+        set showcmd                 " Show partial commands in status line and
+                                    " Selected characters/lines in visual mode
+    endif
+
+    if has('statusline')
+        set laststatus=2
+
+        " Broken down into easily includeable segments
+        set statusline=%<%f\                     " Filename
+        set statusline+=%w%h%m%r                 " Options
+        set statusline+=\ [%{&ff}/%Y]            " Filetype
+        set statusline+=\ [%{getcwd()}]          " Current dir
+        set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+    endif
+
+    set backspace=indent,eol,start  " Backspace for dummies
+    set linespace=0                 " No extra spaces between rows
+    set nu                          " Line numbers on
+    set showmatch                   " Show matching brackets/parenthesis
+    set incsearch                   " Find as you type search
+    set hlsearch                    " Highlight search terms
+    set winminheight=0              " Windows can be 0 line high
+    set ignorecase                  " Case insensitive search
+    set smartcase                   " Case sensitive when uc present
+    set wildmenu                    " Show list instead of just completing
+    set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+    set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+    set scrolljump=5                " Lines to scroll when cursor leaves screen
+    set scrolloff=3                 " Minimum lines to keep above and below cursor
+    "set foldenable                  " Auto fold code
+    "set list
+    "set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+
+" }
+
+" Formatting {
+
+    set nowrap                      " Do not wrap long lines
+    set autoindent                  " Indent at the same level of the previous line
+    set shiftwidth=4                " Use indents of 4 spaces
+    set expandtab                   " Tabs are spaces, not tabs
+    set tabstop=4                   " An indentation every four columns
+    set softtabstop=4               " Let backspace delete indent
+    set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+    set splitright                  " Puts new vsplit windows to the right of the current
+    set splitbelow                  " Puts new split windows to the bottom of the current
+    "set matchpairs+=<:>             " Match, to be used with %
+    set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+    "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
+    " Remove trailing whitespaces and ^M chars
+    " To disable the stripping of whitespace, add the following to your
+    " .vimrc.before.local file:
+    "   let g:spf13_keep_trailing_whitespace = 1
+    autocmd FileType go autocmd BufWritePre <buffer> Fmt
+    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+    autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
+    " preceding line best in a plugin but here for now.
+
+    " Workaround vim-commentary for Haskell
+    autocmd FileType haskell setlocal commentstring=--\ %s
+    " Workaround broken colour highlighting in Haskell
+    autocmd FileType haskell setlocal nospell
+
+" }
