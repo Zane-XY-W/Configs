@@ -108,48 +108,19 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
 " NerdTree {
     cabbrev NE NERDTree
-    map <C-e> <plug>NERDTreeTabsToggle<CR>
-    map <leader>e :NERDTreeFind<CR>
-    nmap <leader>nt :NERDTreeFind<CR>
-
     let NERDTreeShowBookmarks=1
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-    let NERDTreeChDirMode=0
-    let NERDTreeQuitOnOpen=1
-    let NERDTreeMouseMode=2
-    let NERDTreeShowHidden=1
-    let NERDTreeKeepTreeInNewTab=1
-    let g:nerdtree_tabs_open_on_gui_startup=0
+    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
 " }
 Bundle 'tomtom/tcomment_vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 " ctrlp {
+      let g:ctrlp_root_markers = ['*.cabal'] " denote project root
       let g:ctrlp_working_path_mode = 'ra'
-      nnoremap <silent> <D-t> :CtrlP<CR>
-      nnoremap <silent> <D-r> :CtrlPMRU<CR>
       let g:ctrlp_custom_ignore = {
-	  \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+	  \ 'dir':  '\.git$\|\.hg$\|\.svn$|dist',
 	  \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-      " On Windows use "dir" as fallback command.
-      if WINDOWS()
-	  let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-      elseif executable('ag')
-	  let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-      elseif executable('ack')
-	  let s:ctrlp_fallback = 'ack %s --nocolor -f'
-      else
-	  let s:ctrlp_fallback = 'find %s -type f'
-      endif
-      let g:ctrlp_user_command = {
-	  \ 'types': {
-	      \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-	      \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-	  \ },
-	  \ 'fallback': s:ctrlp_fallback
-      \ }
-  "}
+"}
 
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'rking/ag.vim'
@@ -274,7 +245,7 @@ Bundle "benmills/vimux"
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    set cursorline cursorcolumn     " Highlight current line
+    set cursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
@@ -334,11 +305,15 @@ Bundle "benmills/vimux"
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
+    autocmd FileType python,haskell,scala autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+
     " To disable the stripping of whitespace, add the following to your
     " .vimrc.before.local file:
     "   let g:spf13_keep_trailing_whitespace = 1
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+    autocmd BufNewFile,BufRead *.hs setlocal cursorcolumn
+    autocmd BufNewFile,BufRead *.cabal setlocal cursorcolumn
     autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
@@ -348,3 +323,21 @@ Bundle "benmills/vimux"
     autocmd FileType haskell setlocal nospell
 
 " }
+
+" Functions {
+
+ " Strip whitespace {
+    function! StripTrailingWhitespace()
+    " Preparation: save last search, and cursor position.
+            let _s=@/
+            let l = line(".")
+            let c = col(".")
+    " do the business:
+            %s/\s\+$//e
+    " clean up: restore previous search history, and cursor position
+            let @/=_s
+            call cursor(l, c)
+        endfunction
+    " }
+
+" 
