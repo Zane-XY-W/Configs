@@ -1,3 +1,7 @@
+#ignore all
+*
+#except
+!.gitignore
 !_vimrc
 !.hirc
 !.vim/bundle/vimproc.vim/autoload/vimproc_win64.dll
