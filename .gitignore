@@ -2,7 +2,7 @@
 *
 #except
 !.gitignore
-!_vimrc
+!.vimrc
 !.hirc
 !.vim/bundle/vimproc.vim/autoload/vimproc_win64.dll
 !.vim/bundle/ultisnips/UltiSnips/scala.snippets
