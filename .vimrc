@@ -126,7 +126,7 @@ Bundle 'jiangmiao/auto-pairs'
 Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
-
+Bundle 'plasticboy/vim-markdown'
 " indent script tag inside html correctly
 Bundle 'vim-scripts/JavaScript-Indent'
 
@@ -218,7 +218,7 @@ Bundle "benmills/vimux"
             elseif OSX() && has("gui_running")
                 set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
             elseif WINDOWS() && has("gui_running")
-                set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+                set guifont=Andale_Mono:h11,Menlo:h10,Consolas:h10,Courier_New:h10
             endif
         endif
         set noerrorbells visualbell t_vb=   "disable beep
