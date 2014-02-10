@@ -168,7 +168,7 @@ let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
 "au BufEnter *.hs compiler ghc
 
 Bundle "eagletmt/ghcmod-vim"
-autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 map <a-=> :GhcModType<CR>
 map <a--> :GhcModTypeClear<CR>
 
