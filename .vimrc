@@ -39,6 +39,7 @@
                 set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
             elseif OSX() && has("gui_running")
                 set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+                "set macmeta
             elseif WINDOWS() && has("gui_running")
                 set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
             endif
@@ -118,11 +119,18 @@ Bundle 'kien/ctrlp.vim'
       let g:ctrlp_root_markers = ['*.cabal'] " denote project root
       let g:ctrlp_working_path_mode = 'ra'
       let g:ctrlp_custom_ignore = {
-	  \ 'dir':  '\.git$\|\.hg$\|\.svn$|dist',
+	  \ 'dir':  '\.git$\|\.hg$\|\.svn$|dist$\',
 	  \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 "}
 
 Bundle 'jiangmiao/auto-pairs'
+"autopair keybinding in terminal
+if has("gui_macvim")
+    let g:AutoPairsShortcutToggle     = 'π' " <m-p>
+    let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
+    let g:AutoPairsShortcutJump       = '∆' " <m-j>
+    let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
+endif
 Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
@@ -158,17 +166,24 @@ cabbrev es UltiSnipsEdit
 "Bundle 'einars/js-beautify'
 "Bundle "pangloss/vim-javascript"
 
+"tabular
+Bundle 'godlygeek/tabular'
+if exists(":Tabularize")
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+endif
+
 " haskell
 Bundle "Shougo/vimproc.vim"
-Bundle 'lukerandall/haskellmode-vim'
-let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
-let g:haddock_indexfiledir = "~/.vim/"
-let g:haddock_browser_callformat = '%s "%s"'
-let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
+Bundle "lukerandall/haskellmode-vim"
+" let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
+" let g:haddock_indexfiledir = "~/.vim/"
+" let g:haddock_browser_callformat = '%s "%s"'
+" let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
 "au BufEnter *.hs compiler ghc
 
 Bundle "eagletmt/ghcmod-vim"
-"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 map <a-=> :GhcModType<CR>
 map <a--> :GhcModTypeClear<CR>
 
@@ -277,7 +292,7 @@ Bundle "benmills/vimux"
     set incsearch                   " Find as you type search
     set hlsearch                    " Highlight search terms
     set winminheight=0              " Windows can be 0 line high
-    set ignorecase                  " Case insensitive search
+    " set ignorecase                  " Case insensitive search
     set smartcase                   " Case sensitive when uc present
     set wildmenu                    " Show list instead of just completing
     set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
