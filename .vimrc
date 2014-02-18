@@ -64,6 +64,7 @@
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
+    set encoding=utf-8
 
     " if has('clipboard')
     "     if LINUX()   " On Linux use + register for copy-paste
@@ -140,11 +141,13 @@ Bundle 'vim-scripts/JavaScript-Indent'
 
 " python
 Bundle 'klen/python-mode'
-Bundle 'python.vim'
-Bundle 'python_match.vim'
-Bundle 'pythoncomplete'
-" disable pymode auto folding
+let g:pymode_lint_on_write = 0
 let g:pymode_folding = 0
+let g:pymode_lint_ignore = ""
+let g:pymode_lint_checkers = ['pep8']
+let g:pymode_rope = 0
+"auto format using autopep
+autocmd FileType go autocmd BufWritePre <buffer> :call pymode#lint#auto()
 
 " scala
 Bundle 'derekwyatt/vim-scala'
