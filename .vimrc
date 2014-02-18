@@ -34,15 +34,13 @@
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-        if !exists("g:spf13_no_big_font")
-            if LINUX() && has("gui_running")
-                set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-            elseif OSX() && has("gui_running")
-                set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
-                "set macmeta
-            elseif WINDOWS() && has("gui_running")
-                set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-            endif
+        if LINUX() && has("gui_running")
+            set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+        elseif OSX() && has("gui_running")
+            set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+            "set macmeta
+        elseif WINDOWS() && has("gui_running")
+            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -54,15 +52,18 @@
 " }
 
 " General {
-
-    set background=light " Assume a dark background
-    " if !has('gui')
-        "set term=$TERM          " Make arrow and other keys work
-    " endif
-    filetype plugin indent on   " Automatically detect file types.
-    syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
-    set mousehide               " Hide the mouse cursor while typing
+    if WINDOWS()
+        set background=dark   " Assume a dark background
+    else
+        set background=light
+    endif
+                              " if !has('gui')
+                              " set term=$TERM                     " Make arrow and other keys work
+                              " endif
+    filetype plugin indent on " Automatically detect file types.
+    syntax on                 " Syntax highlighting
+    set mouse=a               " Automatically enable mouse usage
+    set mousehide             " Hide the mouse cursor while typing
     scriptencoding utf-8
     set encoding=utf-8
 
@@ -100,7 +101,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
@@ -147,7 +148,8 @@ let g:pymode_lint_ignore = ""
 let g:pymode_lint_checkers = ['pep8']
 let g:pymode_rope = 0
 "auto format using autopep
-autocmd FileType go autocmd BufWritePre <buffer> :call pymode#lint#auto()
+"autocmd FileType python autocmd BufWritePre <buffer> :call pymode#lint#auto()
+autocmd FileType python nnoremap <buffer> <leader>f :PymodeLintAuto<CR>
 
 " scala
 Bundle 'derekwyatt/vim-scala'
@@ -323,11 +325,8 @@ Bundle "benmills/vimux"
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
-    autocmd FileType python,haskell,scala autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+    autocmd FileType python,haskell,scala,vim autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
 
-    " To disable the stripping of whitespace, add the following to your
-    " .vimrc.before.local file:
-    "   let g:spf13_keep_trailing_whitespace = 1
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
     autocmd BufNewFile,BufRead *.hs setlocal cursorcolumn
@@ -358,4 +357,4 @@ Bundle "benmills/vimux"
         endfunction
     " }
 
-" 
+"
