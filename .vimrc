@@ -181,10 +181,17 @@ endif
 " haskell
 Bundle "Shougo/vimproc.vim"
 Bundle "lukerandall/haskellmode-vim"
-" let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
-" let g:haddock_indexfiledir = "~/.vim/"
-" let g:haddock_browser_callformat = '%s "%s"'
-" let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
+if OSX()
+    let g:haddock_browser = "/Applications/Safari.app/Contents/MacOS/Safari"
+elseif WINDOWS()
+    let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
+    let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
+    let g:haddock_browser_callformat = '%s "%s"'
+elseif LINUX()
+    let g:haddock_browser = "firefox"
+endif
+
+let g:haddock_indexfiledir = "~/.vim/"
 "au BufEnter *.hs compiler ghc
 
 Bundle "eagletmt/ghcmod-vim"
@@ -232,14 +239,12 @@ Bundle "benmills/vimux"
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-        if !exists("g:spf13_no_big_font")
-            if LINUX() && has("gui_running")
-                set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-            elseif OSX() && has("gui_running")
-                set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
-            elseif WINDOWS() && has("gui_running")
-                set guifont=Andale_Mono:h11,Menlo:h10,Consolas:h10,Courier_New:h10
-            endif
+        if LINUX() && has("gui_running")
+            set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+        elseif OSX() && has("gui_running")
+            set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+        elseif WINDOWS() && has("gui_running")
+            set guifont=Andale_Mono:h11,Menlo:h10,Consolas:h10,Courier_New:h10
         endif
         set noerrorbells visualbell t_vb=   "disable beep
         autocmd GUIEnter * set visualbell t_vb=
@@ -358,3 +363,7 @@ Bundle "benmills/vimux"
     " }
 
 "
+" Mapping {
+cabbrev er e $MYVIMRC
+cabbrev sr so $MYVIMRC
+" }
