@@ -40,7 +40,7 @@
             set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
             "set macmeta
         elseif WINDOWS() && has("gui_running")
-            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+            set guifont=Consolas:h10
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -178,6 +178,8 @@ if exists(":Tabularize")
     vmap <Leader>a= :Tabularize /=<CR>
 endif
 
+"Bundle 'Shougo/neocomplcache'
+
 " haskell
 Bundle "Shougo/vimproc.vim"
 Bundle "lukerandall/haskellmode-vim"
@@ -200,6 +202,8 @@ map <a-=> :GhcModType<CR>
 map <a--> :GhcModTypeClear<CR>
 
 Bundle "dag/vim2hs"
+let g:haskell_conceal=0
+let g:haskell_conceal_enumerations=0
 
 Bundle "nathanaelkane/vim-indent-guides"
 " indent_guides {
@@ -308,6 +312,7 @@ Bundle "benmills/vimux"
     set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
+    set nofoldenable                " disable folding
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     "set foldenable                  " Auto fold code
     "set list
