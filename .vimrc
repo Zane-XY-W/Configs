@@ -212,7 +212,10 @@ Bundle "nathanaelkane/vim-indent-guides"
     let g:indent_guides_enable_on_vim_startup = 1
 " }
 
+" external haskell formatter
 au BufEnter *.hs setl formatprg=pretty-hs\ --stdin\ --stdout
+" aligns imports and convert tabs into spaces using stylish-haskell
+autocmd FileType haskell nnoremap <buffer> <leader>f :%!stylish-haskell<CR>
 
 Bundle "bling/vim-airline"
 " vim-airline {
