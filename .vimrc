@@ -106,9 +106,10 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
-" NerdTree {
-    cabbrev NE NERDTree
+" NERDTree {
     map <leader>z :NERDTreeToggle<CR>
+    "Sync up the current file with NERDTree
+    map <leader>s :NERDTreeFind<CR>
     let NERDTreeShowBookmarks=1
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
 " }
