@@ -108,6 +108,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
 " NerdTree {
     cabbrev NE NERDTree
+    map <leader>z :NERDTreeToggle<CR>
     let NERDTreeShowBookmarks=1
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
 " }
