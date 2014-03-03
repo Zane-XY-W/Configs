@@ -34,6 +34,7 @@
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
+        set background=dark
         if LINUX() && has("gui_running")
             set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
         elseif OSX() && has("gui_running")
@@ -47,16 +48,12 @@
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
         endif
         "set term=builtin_ansi       " Make arrow and other keys work
+        set background=light
     endif
 
 " }
 
 " General {
-    if WINDOWS()
-        set background=dark   " Assume a dark background
-    else
-        set background=light
-    endif
                               " if !has('gui')
                               " set term=$TERM                     " Make arrow and other keys work
                               " endif
@@ -109,8 +106,10 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
-" NerdTree {
-    cabbrev NE NERDTree
+" NERDTree {
+    map <leader>z :NERDTreeToggle<CR>
+    "Sync up the current file with NERDTree
+    map <leader>s :NERDTreeFind<CR>
     let NERDTreeShowBookmarks=1
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
 " }
@@ -121,8 +120,10 @@ Bundle 'kien/ctrlp.vim'
       let g:ctrlp_root_markers = ['*.cabal'] " denote project root
       let g:ctrlp_working_path_mode = 'ra'
       let g:ctrlp_custom_ignore = {
-	  \ 'dir':  '\.git$\|\.hg$\|\.svn$|dist$\',
-	  \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+          \ 'dir':  '\v[\/]\.(git|hg|svn)$|dist',
+          \ 'file': '\v\.(exe|so|dll)$',
+          \ 'link': 'some_bad_symbolic_links',
+          \ }
 "}
 
 Bundle 'jiangmiao/auto-pairs'
@@ -174,11 +175,16 @@ cabbrev es UltiSnipsEdit
 "tabular
 Bundle 'godlygeek/tabular'
 if exists(":Tabularize")
-    nmap <Leader>a= :Tabularize /=<CR>
-    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a= :Tabularize / = <CR>
+    vmap <Leader>a= :Tabularize / = <CR>
 endif
 
 "Bundle 'Shougo/neocomplcache'
+
+Bundle 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
+Bundle 'bitc/lushtags'
 
 " haskell
 Bundle "Shougo/vimproc.vim"
@@ -212,6 +218,10 @@ Bundle "nathanaelkane/vim-indent-guides"
     let g:indent_guides_enable_on_vim_startup = 1
 " }
 
+" external haskell formatter
+au BufEnter *.hs setl formatprg=pretty-hs\ --stdin\ --stdout
+" aligns imports and convert tabs into spaces using stylish-haskell
+autocmd FileType haskell nnoremap <buffer> <leader>f :%!stylish-haskell<CR>
 
 Bundle "bling/vim-airline"
 " vim-airline {

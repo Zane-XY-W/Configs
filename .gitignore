@@ -8,5 +8,6 @@
 !.vim/bundle/vimproc.vim/autoload/vimproc_win64.dll
 !.vim/bundle/ultisnips/UltiSnips/scala.snippets
 !.vim/bundle/ultisnips/UltiSnips/sbt.snippets
+!.vim/bundle/ultisnips/UltiSnips/haskell.snippets
 !.sbt/0.13/build.sbt
 !.sbt/0.13/plugins/plugins.sbt
