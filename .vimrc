@@ -335,7 +335,7 @@ Bundle "benmills/vimux"
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
-    autocmd FileType python,haskell,scala,vim autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+    autocmd FileType python,haskell,scala,vim,sh autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
 
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
