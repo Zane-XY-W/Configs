@@ -1,3 +1,12 @@
+" Vundle {
+    set nocompatible              " be iMproved, required, should be at the first line
+    filetype off                  " required
+
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+" }
+
 " Environment {
 
     " Identify platform {
@@ -13,7 +22,6 @@
     " }
 
     " Basics {
-        set nocompatible        " Must be first line
         if !WINDOWS()
             set shell=/bin/sh
         endif
@@ -28,11 +36,147 @@
     " }
 
 " }
+
+"Bundles {
+
+    Bundle 'Lokaltog/vim-easymotion'
+    Bundle 'scrooloose/nerdtree'
+    " NERDTree {
+        map <leader>z :NERDTreeToggle<CR>
+        "Sync up the current file with NERDTree
+        map <leader>s :NERDTreeFind<CR>
+        let NERDTreeShowBookmarks=1
+        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
+    " }
+    Bundle 'tomtom/tcomment_vim'
+    Bundle 'altercation/vim-colors-solarized'
+    Bundle 'kien/ctrlp.vim'
+    " ctrlp {
+          let g:ctrlp_root_markers = ['*.cabal'] " denote project root
+          let g:ctrlp_working_path_mode = 'ra'
+          let g:ctrlp_custom_ignore = {
+              \ 'dir':  '\v[\/]\.(git|hg|svn)$|dist',
+              \ 'file': '\v\.(exe|so|dll)$',
+              \ 'link': 'some_bad_symbolic_links',
+              \ }
+    "}
+
+    Bundle 'jiangmiao/auto-pairs'
+    "autopair keybinding in terminal
+    if has("gui_macvim")
+        let g:AutoPairsShortcutToggle     = 'π' " <m-p>
+        let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
+        let g:AutoPairsShortcutJump       = '∆' " <m-j>
+        let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
+    endif
+    Bundle 'rking/ag.vim'
+    Bundle 'tpope/vim-surround'
+    Bundle 'tpope/vim-unimpaired'
+    Bundle 'plasticboy/vim-markdown'
+    " indent script tag inside html correctly
+    Bundle 'vim-scripts/JavaScript-Indent'
+
+    " python
+    Bundle 'klen/python-mode'
+    let g:pymode_lint_on_write = 0
+    let g:pymode_folding = 0
+    let g:pymode_lint_ignore = ""
+    let g:pymode_lint_checkers = ['pep8']
+    let g:pymode_rope = 0
+    "auto format using autopep
+    "autocmd FileType python autocmd BufWritePre <buffer> :call pymode#lint#auto()
+    autocmd FileType python nnoremap <buffer> <leader>f :PymodeLintAuto<CR>
+
+    " scala
+    Bundle 'derekwyatt/vim-scala'
+    " sbt filetype
+    Bundle 'derekwyatt/vim-sbt'
+
+    "snippets
+    Bundle 'SirVer/ultisnips'
+    let g:UltiSnipsUsePythonVersion = 2
+    let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips/UltiSnips"
+    let g:UltiSnipsEditSplit="horizontal"
+    cabbrev es UltiSnipsEdit
+
+    " perl
+    " Bundle 'perl-support.vim'
+
+    " html and js
+    "Bundle 'Chiel92/vim-autoformat'
+    "Bundle 'einars/js-beautify'
+    "Bundle "pangloss/vim-javascript"
+
+    "tabular
+    Bundle 'godlygeek/tabular'
+    if exists(":Tabularize")
+        nmap <Leader>a= :Tabularize / = <CR>
+        vmap <Leader>a= :Tabularize / = <CR>
+    endif
+
+    "Bundle 'Shougo/neocomplcache'
+
+    Bundle 'majutsushi/tagbar'
+    nmap <F8> :TagbarToggle<CR>
+
+    Bundle 'bitc/lushtags'
+
+    " haskell
+    Bundle "Shougo/vimproc.vim"
+    "     Bundle "lukerandall/haskellmode-vim"
+    "     if OSX()
+    "         let g:haddock_browser = "/Applications/Safari.app/Contents/MacOS/Safari"
+    "     elseif WINDOWS()
+    "         let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
+    "         let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
+    "         let g:haddock_browser_callformat = '%s "%s"'
+    "     elseif LINUX()
+    "         let g:haddock_browser = "firefox"
+    "     endif
+    "
+    "     let g:haddock_indexfiledir = "~/.vim/"
+    "     au BufEnter *.hs compiler ghc
+
+    Bundle "eagletmt/ghcmod-vim"
+    autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+    map <a-=> :GhcModType<CR>
+    map <a--> :GhcModTypeClear<CR>
+
+    Bundle "dag/vim2hs"
+    let g:haskell_conceal=0
+    let g:haskell_conceal_enumerations=0
+
+    Bundle "nathanaelkane/vim-indent-guides"
+    " indent_guides {
+        let g:indent_guides_start_level = 2
+        let g:indent_guides_guide_size = 1
+        let g:indent_guides_enable_on_vim_startup = 1
+    " }
+
+    " external haskell formatter
+    au BufEnter *.hs setl formatprg=pretty-hs\ --stdin\ --stdout
+    " aligns imports and convert tabs into spaces using stylish-haskell
+    autocmd FileType haskell nnoremap <buffer> <leader>f :%!stylish-haskell<CR>
+
+    Bundle "bling/vim-airline"
+    " vim-airline {
+        " Default in terminal vim is 'dark'
+        if !exists('g:airline_theme')
+            let g:airline_theme = 'solarized'
+        endif
+    " }
+
+    "Bundle "benmills/vimux"
+
+"}
+
+
 " GUI Settings {
 
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
+        set guioptions-=m           " Remove the menu
         set lines=40                " 40 lines of text instead of 24
         set background=dark
         if LINUX() && has("gui_running")
@@ -57,7 +201,7 @@
                               " if !has('gui')
                               " set term=$TERM                     " Make arrow and other keys work
                               " endif
-    filetype plugin indent on " Automatically detect file types.
+    filetype plugin indent on " Automatically detect file types, as in Vundle's doc, this line is below bundles definitions
     syntax on                 " Syntax highlighting
     set mouse=a               " Automatically enable mouse usage
     set mousehide             " Hide the mouse cursor while typing
@@ -79,7 +223,6 @@
     set history=1000                    " Store a ton of history (default is 20)
 " }
 
-set nocompatible               " be iMproved filetype off                   " required!
 
 " Easier moving in tabs and windows
 map <C-J> <C-W>j<C-W>_
@@ -90,162 +233,6 @@ map <C-H> <C-W>h<C-W>_
 map zl zL
 map zh zH
 
-"jump to the import section
-"map <A-I> ?^import<space><cr>
-
-" vundle settings
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
-
-" My Bundles here:
-"
-" original repos on github
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'scrooloose/nerdtree'
-" NERDTree {
-    map <leader>z :NERDTreeToggle<CR>
-    "Sync up the current file with NERDTree
-    map <leader>s :NERDTreeFind<CR>
-    let NERDTreeShowBookmarks=1
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
-" }
-Bundle 'tomtom/tcomment_vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'kien/ctrlp.vim'
-" ctrlp {
-      let g:ctrlp_root_markers = ['*.cabal'] " denote project root
-      let g:ctrlp_working_path_mode = 'ra'
-      let g:ctrlp_custom_ignore = {
-          \ 'dir':  '\v[\/]\.(git|hg|svn)$|dist',
-          \ 'file': '\v\.(exe|so|dll)$',
-          \ 'link': 'some_bad_symbolic_links',
-          \ }
-"}
-
-Bundle 'jiangmiao/auto-pairs'
-"autopair keybinding in terminal
-if has("gui_macvim")
-    let g:AutoPairsShortcutToggle     = 'π' " <m-p>
-    let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
-    let g:AutoPairsShortcutJump       = '∆' " <m-j>
-    let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
-endif
-Bundle 'rking/ag.vim'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'plasticboy/vim-markdown'
-" indent script tag inside html correctly
-Bundle 'vim-scripts/JavaScript-Indent'
-
-" python
-Bundle 'klen/python-mode'
-let g:pymode_lint_on_write = 0
-let g:pymode_folding = 0
-let g:pymode_lint_ignore = ""
-let g:pymode_lint_checkers = ['pep8']
-let g:pymode_rope = 0
-"auto format using autopep
-"autocmd FileType python autocmd BufWritePre <buffer> :call pymode#lint#auto()
-autocmd FileType python nnoremap <buffer> <leader>f :PymodeLintAuto<CR>
-
-" scala
-Bundle 'derekwyatt/vim-scala'
-" sbt filetype
-Bundle 'derekwyatt/vim-sbt'
-
-"snippets
-Bundle 'SirVer/ultisnips'
-let g:UltiSnipsUsePythonVersion = 2
-let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips/UltiSnips"
-let g:UltiSnipsEditSplit="horizontal"
-cabbrev es UltiSnipsEdit
-
-" perl
-" Bundle 'perl-support.vim'
-
-" html and js
-"Bundle 'Chiel92/vim-autoformat'
-"Bundle 'einars/js-beautify'
-"Bundle "pangloss/vim-javascript"
-
-"tabular
-Bundle 'godlygeek/tabular'
-if exists(":Tabularize")
-    nmap <Leader>a= :Tabularize / = <CR>
-    vmap <Leader>a= :Tabularize / = <CR>
-endif
-
-"Bundle 'Shougo/neocomplcache'
-
-Bundle 'majutsushi/tagbar'
-nmap <F8> :TagbarToggle<CR>
-
-Bundle 'bitc/lushtags'
-
-" haskell
-Bundle "Shougo/vimproc.vim"
-Bundle "lukerandall/haskellmode-vim"
-if OSX()
-    let g:haddock_browser = "/Applications/Safari.app/Contents/MacOS/Safari"
-elseif WINDOWS()
-    let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
-    let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
-    let g:haddock_browser_callformat = '%s "%s"'
-elseif LINUX()
-    let g:haddock_browser = "firefox"
-endif
-
-let g:haddock_indexfiledir = "~/.vim/"
-"au BufEnter *.hs compiler ghc
-
-Bundle "eagletmt/ghcmod-vim"
-autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-map <a-=> :GhcModType<CR>
-map <a--> :GhcModTypeClear<CR>
-
-Bundle "dag/vim2hs"
-let g:haskell_conceal=0
-let g:haskell_conceal_enumerations=0
-
-Bundle "nathanaelkane/vim-indent-guides"
-" indent_guides {
-    let g:indent_guides_start_level = 2
-    let g:indent_guides_guide_size = 1
-    let g:indent_guides_enable_on_vim_startup = 1
-" }
-
-" external haskell formatter
-au BufEnter *.hs setl formatprg=pretty-hs\ --stdin\ --stdout
-" aligns imports and convert tabs into spaces using stylish-haskell
-autocmd FileType haskell nnoremap <buffer> <leader>f :%!stylish-haskell<CR>
-
-Bundle "bling/vim-airline"
-" vim-airline {
-    " Set configuration options for the statusline plugin vim-airline.
-    " Use the powerline theme and optionally enable powerline symbols.
-    " To use the symbols , , , , , , and .in the statusline
-    " segments add the following to your .vimrc.before.local file:
-    "   let g:airline_powerline_fonts=1
-    " If the previous symbols do not render for you then install a
-    " powerline enabled font.
-
-    " See `:echo g:airline_theme_map` for some more choices
-    " Default in terminal vim is 'dark'
-    if !exists('g:airline_theme')
-	let g:airline_theme = 'solarized'
-    endif
-    if !exists('g:airline_powerline_fonts')
-	" Use the default set of separators with a few customizations
-	let g:airline_left_sep='›'  " Slightly fancier than '>'
-	let g:airline_right_sep='‹' " Slightly fancier than '<'
-    endif
-" }
-
-Bundle "benmills/vimux"
 
 " GUI Settings {
 
