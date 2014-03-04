@@ -50,6 +50,7 @@
         "Sync up the current file with NERDTree
         map <leader>s :NERDTreeFind<CR>
         let NERDTreeShowBookmarks=1
+        let NERDTreeChDirMode=2
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
     " }
     Bundle 'tomtom/tcomment_vim'
