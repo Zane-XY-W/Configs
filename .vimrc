@@ -1,12 +1,3 @@
-" Vundle {
-    set nocompatible              " be iMproved, required, should be at the first line
-    filetype off                  " required
-
-    " set the runtime path to include Vundle and initialize
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
-" }
-
 " Environment {
 
     " Identify platform {
@@ -37,7 +28,20 @@
 
 " }
 
+" Vundle {
+    set nocompatible              " be iMproved, required
+    filetype off                  " required
+
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+" }
+
+
 "Bundles {
+
+    " let Vundle manage Vundle, required
+    Bundle 'gmarik/vundle'
 
     Bundle 'Lokaltog/vim-easymotion'
     Bundle 'scrooloose/nerdtree'
@@ -123,19 +127,6 @@
 
     " haskell
     Bundle "Shougo/vimproc.vim"
-    "     Bundle "lukerandall/haskellmode-vim"
-    "     if OSX()
-    "         let g:haddock_browser = "/Applications/Safari.app/Contents/MacOS/Safari"
-    "     elseif WINDOWS()
-    "         let g:haddock_browser = "C:/PROGRA~2/Google/Chrome/Application/chrome.exe"
-    "         let g:haddock_docdir = substitute($APPDATA."/cabal/doc", "\\", "/", "g" )
-    "         let g:haddock_browser_callformat = '%s "%s"'
-    "     elseif LINUX()
-    "         let g:haddock_browser = "firefox"
-    "     endif
-    "
-    "     let g:haddock_indexfiledir = "~/.vim/"
-    "     au BufEnter *.hs compiler ghc
 
     Bundle "eagletmt/ghcmod-vim"
     autocmd BufWritePost *.hs GhcModCheckAndLintAsync
