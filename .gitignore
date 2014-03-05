@@ -1,14 +1,22 @@
-#ignore all
+#ignore all https://github.com/git/git/blob/master/Documentation/gitignore.txt
 *
 #except
 !.gitignore
 !.gitignore_global
 !.vimrc
 !.hirc
-!.vim/bundle/vimproc.vim/autoload/vimproc_win64.dll
+#It is not possible to re-include a file if a parent directory of that file is excluded.
+#vim configs
+!.vim
+!.vim/bundle
+!.vim/bundle/ultisnips
+!.vim/bundle/ultisnips/UltiSnips
 !.vim/bundle/ultisnips/UltiSnips/scala.snippets
 !.vim/bundle/ultisnips/UltiSnips/sbt.snippets
 !.vim/bundle/ultisnips/UltiSnips/haskell.snippets
 !.vim/bundle/ultisnips/UltiSnips/sh.snippets
+#sbt config
+!.sbt
+!.sbt/0.13
 !.sbt/0.13/build.sbt
 !.sbt/0.13/plugins/plugins.sbt

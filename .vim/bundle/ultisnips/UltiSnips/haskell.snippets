@@ -1,0 +1,11 @@
+snippet #l "LANGUAGE pragma"
+{-# LANGUAGE $1 #-}
+endsnippet
+
+snippet #o "OPTIONS_GHC pragma"
+{-# OPTIONS_GHC $1 #-}
+endsnippet
+
+snippet m "module name" !b
+`!p snip.rv = 'module '+snip.basename+' where' `
+endsnippet
