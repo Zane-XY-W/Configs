@@ -1,5 +1,4 @@
-Configs
+configs
 =======
 
-config dotfiles
-ss
+clone to `~`
