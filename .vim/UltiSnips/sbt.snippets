@@ -1,0 +1,18 @@
+priority -50
+
+snippet lib "library dependencies" !b
+libraryDependencies ++= Seq($1)
+endsnippet
+
+snippet scalatest "add scalatest dependency" i
+"org.scalatest" %% "scalatest" % "2.0" % "test"
+endsnippet
+
+snippet scalamock "add scalamock dependency" i
+"org.scalamock" %% "scalamock-scalatest-support" % "3.+" % "test"
+endsnippet
+
+snippet scalaz "add scalaz dependency" i
+"org.scalaz" %% "scalaz-core" % "7.0.5"
+endsnippet
+
