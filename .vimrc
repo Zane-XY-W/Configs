@@ -66,12 +66,12 @@
 
     Bundle 'jiangmiao/auto-pairs'
     "autopair keybinding in terminal
-    if has("gui_macvim")
-        let g:AutoPairsShortcutToggle     = 'π' " <m-p>
-        let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
-        let g:AutoPairsShortcutJump       = '∆' " <m-j>
-        let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
-    endif
+    " if has("gui_macvim")
+    "     let g:AutoPairsShortcutToggle     = 'π' " <m-p>
+    "     let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
+    "     let g:AutoPairsShortcutJump       = '∆' " <m-j>
+    "     let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
+    " endif
     Bundle 'rking/ag.vim'
     Bundle 'tpope/vim-surround'
     Bundle 'tpope/vim-unimpaired'
@@ -115,6 +115,7 @@
     if exists(":Tabularize")
         nmap <Leader>a= :Tabularize / = <CR>
         vmap <Leader>a= :Tabularize / = <CR>
+        vmap <Leader>a- :Tabularize / -- <CR>
     endif
 
     "Bundle 'Shougo/neocomplcache'
@@ -124,12 +125,12 @@
 
     Bundle 'bitc/lushtags'
 
-    " haskell
     Bundle "Shougo/vimproc.vim"
-
+    " haskell
     Bundle "eagletmt/ghcmod-vim"
     autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-    autocmd FileType haskell nnoremap <buffer> <leader>t :GhcModType<CR>
+    autocmd FileType haskell nnoremap <buffer> <M-=> :GhcModType<CR>
+    autocmd FileType haskell nnoremap <buffer> <M--> :GhcModTypeClear<CR>
 
     Bundle "dag/vim2hs"
     let g:haskell_conceal=0
@@ -164,15 +165,16 @@
 
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
-        set guioptions-=T           " Remove the toolbar
-        set guioptions-=m           " Remove the menu
-        set lines=40                " 40 lines of text instead of 24
+        set guioptions-=T                " Remove the toolbar
+        set guioptions-=m                " Remove the menu
+        set lines=40                     " 40 lines of text instead of 24
         set background=dark
+        autocmd GUIEnter * set vb t_vb=  " Disable visual bell
         if LINUX() && has("gui_running")
             set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
         elseif OSX() && has("gui_running")
-            set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
-            "set macmeta
+            set guifont=Inconsolata\ for\ Powerline:h16,Source\ Code\ Pro\ for\ Powerline:h16
+            set macmeta
         elseif WINDOWS() && has("gui_running")
             set guifont=Inconsolata\ for\ Powerline:h14,Sauce\ Code\ Powerline:h14
         endif

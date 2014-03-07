@@ -61,3 +61,17 @@ snippet let "let ... in ..."
 let ${1:name} = ${2:expression}
 in ${3:expression}
 endsnippet
+
+snippet m "module name" 
+`!p snip.rv = 'module ' + snip.basename + ' where' `
+$1
+endsnippet
+
+snippet - "field comment"
+-- ^ $1
+endsnippet
+
+snippet -- "block comment"
+-- | $1
+endsnippet
+
