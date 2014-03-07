@@ -174,8 +174,7 @@
             set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
             "set macmeta
         elseif WINDOWS() && has("gui_running")
-            set guifont=Sauce\ Code\ Powerline:h12:w7
-            ",Inconsolata-dz_for_Powerline:h12
+            set guifont=Inconsolata\ for\ Powerline:h14,Sauce\ Code\ Powerline:h14
         endif
     else
         if &term == 'xterm' || &term == 'screen'
