@@ -116,6 +116,8 @@
         nmap <Leader>a= :Tabularize / = <CR>
         vmap <Leader>a= :Tabularize / = <CR>
         vmap <Leader>a- :Tabularize / -- <CR>
+        AddTabularPattern! align_type /\(^[^:]*\zs\(::\)\)\|^\s*\zs\(->\)/l1l1
+        vmap <Leader>at :Tabularize align_type<CR>
     endif
 
     "Bundle 'Shougo/neocomplcache'
@@ -167,6 +169,8 @@
     if has('gui_running')
         set guioptions-=T                " Remove the toolbar
         set guioptions-=m                " Remove the menu
+        set guioptions-=L                " Remove left scrollbar
+        set guioptions-=r                " Remove right scrollbar
         set lines=40                     " 40 lines of text instead of 24
         set background=dark
         autocmd GUIEnter * set vb t_vb=  " Disable visual bell
@@ -196,6 +200,7 @@
     set mousehide             " Hide the mouse cursor while typing
     scriptencoding utf-8
     set encoding=utf-8
+    set hidden                " buffer navigation without saving
 
     " if has('clipboard')
     "     if LINUX()   " On Linux use + register for copy-paste
