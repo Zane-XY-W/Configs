@@ -49,6 +49,7 @@
         map <leader>s :NERDTreeFind<CR>
         let NERDTreeShowBookmarks=1
         let NERDTreeChDirMode=2
+        let NERDTreeQuitOnOpen=1 "auto close NERDTree after open a file
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
     " }
     Bundle 'tomtom/tcomment_vim'
