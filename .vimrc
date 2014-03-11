@@ -79,7 +79,6 @@
     Bundle 'plasticboy/vim-markdown'
     " indent script tag inside html correctly
     Bundle 'vim-scripts/JavaScript-Indent'
-
     " python
     Bundle 'klen/python-mode'
     let g:pymode_lint_on_write = 0
@@ -333,4 +332,7 @@
     " Easier horizontal scrolling
     map zl zL
     map zh zH
+    " map f1 to esc
+    map <F1> <Esc>
+    imap <F1> <Esc>
 " }
