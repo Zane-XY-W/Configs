@@ -6,6 +6,7 @@
 !.vimrc
 !.hirc
 !README.md
+!.ghci
 #It is not possible to re-include a file if a parent directory of that file is excluded.
 
 #vim configs
