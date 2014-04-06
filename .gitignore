@@ -25,5 +25,9 @@
 /.sbt/0.13/plugins/*
 !/.sbt/0.13/plugins/plugins.sbt
 
+#cabal
+!/.cabal
+/.cabal/*
+!/.cabal/config
 
 
