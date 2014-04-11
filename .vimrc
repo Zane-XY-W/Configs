@@ -41,7 +41,6 @@
     " let Vundle manage Vundle, required
     Bundle 'gmarik/vundle'
 
-    Bundle 'zhaocai/GoldenView.Vim'
     Bundle 'Lokaltog/vim-easymotion'
     Bundle 'scrooloose/nerdtree'
     " NERDTree {
