@@ -1,0 +1,2 @@
+:def hoo \x -> return $ ":!hoogle search --color \"" ++ x ++ "\""
+:def doc \x -> return $ ":!hoogle search --color --info --link \"" ++ x ++ "\""

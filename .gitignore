@@ -1,0 +1,34 @@
+#ignore all https://github.com/git/git/blob/master/Documentation/gitignore.txt
+/*
+#except
+!.gitignore
+!.gitconfig
+!.gitignore_global
+!.vimrc
+!.hirc
+!README.md
+!.ghci
+#It is not possible to re-include a file if a parent directory of that file is excluded.
+
+#vim configs
+!/.vim
+/.vim/*
+!/.vim/UltiSnips
+#!/.vim/snippets/*
+
+#sbt configs
+!/.sbt
+/.sbt/*
+!/.sbt/0.13
+/.sbt/0.13/*
+!/.sbt/0.13/build.sbt
+!/.sbt/0.13/plugins
+/.sbt/0.13/plugins/*
+!/.sbt/0.13/plugins/plugins.sbt
+
+#cabal
+!/.cabal
+/.cabal/*
+!/.cabal/config
+
+

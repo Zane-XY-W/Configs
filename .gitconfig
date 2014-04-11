@@ -1,0 +1,8 @@
+[user]
+	name = Zane.XY
+	email = zane.xy@live.com
+[core]
+	autocrlf = true
+	excludesfile = '~/.gitignore_global'
+[push]
+	default = simple
