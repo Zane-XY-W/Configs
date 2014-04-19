@@ -14,7 +14,7 @@
 
     " Basics {
         if !WINDOWS()
-            set shell=/bin/sh
+            set shell=/bin/bash
         endif
     " }
 
@@ -31,18 +31,16 @@
 " Vundle {
     set nocompatible              " be iMproved, required
     filetype off                  " required
-
-    " set the runtime path to include Vundle and initialize
     set rtp+=~/.vim/bundle/vundle/
     call vundle#rc()
 " }
 
 "Bundles {
     " let Vundle manage Vundle, required
-    Bundle 'gmarik/vundle'
+    Plugin 'gmarik/vundle'
 
-    Bundle 'Lokaltog/vim-easymotion'
-    Bundle 'scrooloose/nerdtree'
+    Plugin 'Lokaltog/vim-easymotion'
+    Plugin 'scrooloose/nerdtree'
     " NERDTree {
         map <leader>z :NERDTreeToggle<CR>
         "Sync up the current file with NERDTree
@@ -52,9 +50,9 @@
         let NERDTreeQuitOnOpen=1 "auto close NERDTree after open a file
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store']
     " }
-    Bundle 'tomtom/tcomment_vim'
-    Bundle 'altercation/vim-colors-solarized'
-    Bundle 'kien/ctrlp.vim'
+    Plugin 'tomtom/tcomment_vim'
+    Plugin 'altercation/vim-colors-solarized'
+    Plugin 'kien/ctrlp.vim'
     " ctrlp {
           let g:ctrlp_root_markers = ['*.cabal'] " denote project root
           let g:ctrlp_working_path_mode = 'ra'
@@ -65,7 +63,7 @@
               \ }
     "}
 
-    Bundle 'jiangmiao/auto-pairs'
+    Plugin 'jiangmiao/auto-pairs'
     "autopair keybinding in terminal
     " if has("gui_macvim")
     "     let g:AutoPairsShortcutToggle     = 'π' " <m-p>
@@ -73,14 +71,14 @@
     "     let g:AutoPairsShortcutJump       = '∆' " <m-j>
     "     let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
     " endif
-    Bundle 'rking/ag.vim'
-    Bundle 'tpope/vim-surround'
-    Bundle 'tpope/vim-unimpaired'
-    Bundle 'plasticboy/vim-markdown'
+    Plugin 'rking/ag.vim'
+    Plugin 'tpope/vim-surround'
+    Plugin 'tpope/vim-unimpaired'
+    Plugin 'plasticboy/vim-markdown'
     " indent script tag inside html correctly
-    Bundle 'vim-scripts/JavaScript-Indent'
+    Plugin 'vim-scripts/JavaScript-Indent'
     " python
-    Bundle 'klen/python-mode'
+    Plugin 'klen/python-mode'
     let g:pymode_lint_on_write = 0
     let g:pymode_folding = 0
     let g:pymode_lint_ignore = ""
@@ -91,27 +89,27 @@
     autocmd FileType python nnoremap <buffer> <leader>f :PymodeLintAuto<CR>
 
     " scala
-    Bundle 'derekwyatt/vim-scala'
+    Plugin 'derekwyatt/vim-scala'
     " sbt filetype
-    Bundle 'derekwyatt/vim-sbt'
+    Plugin 'derekwyatt/vim-sbt'
 
     "snippets
-    Bundle 'SirVer/ultisnips'
+    Plugin 'SirVer/ultisnips'
     "let g:UltiSnipsUsePythonVersion = 2
     let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
     let g:UltiSnipsEditSplit="horizontal"
     cabbrev es UltiSnipsEdit
 
     " perl
-    " Bundle 'perl-support.vim'
+    " Plugin 'perl-support.vim'
 
     " html and js
-    "Bundle 'Chiel92/vim-autoformat'
-    "Bundle 'einars/js-beautify'
-    "Bundle "pangloss/vim-javascript"
+    "Plugin 'Chiel92/vim-autoformat'
+    "Plugin 'einars/js-beautify'
+    "Plugin "pangloss/vim-javascript"
 
     "tabular
-    Bundle 'godlygeek/tabular'
+    Plugin 'godlygeek/tabular'
     if exists(":Tabularize")
         nmap <Leader>a= :Tabularize / = <CR>
         vmap <Leader>a= :Tabularize / = <CR>
@@ -120,25 +118,25 @@
         vmap <Leader>at :Tabularize align_type<CR>
     endif
 
-    "Bundle 'Shougo/neocomplcache'
+    "Plugin 'Shougo/neocomplcache'
 
-    Bundle 'majutsushi/tagbar'
+    Plugin 'majutsushi/tagbar'
     nmap <F8> :TagbarToggle<CR>
 
-    Bundle 'bitc/lushtags'
+    Plugin 'bitc/lushtags'
 
-    Bundle "Shougo/vimproc.vim"
+    Plugin 'Shougo/vimproc.vim'
     " haskell
-    Bundle "eagletmt/ghcmod-vim"
+    Plugin 'eagletmt/ghcmod-vim'
     autocmd BufWritePost *.hs GhcModCheckAndLintAsync
     autocmd FileType haskell nnoremap <buffer> <M-=> :GhcModType<CR>
     autocmd FileType haskell nnoremap <buffer> <M--> :GhcModTypeClear<CR>
 
-    Bundle "dag/vim2hs"
+    Plugin 'dag/vim2hs'
     let g:haskell_conceal=0
     let g:haskell_conceal_enumerations=0
 
-    Bundle "nathanaelkane/vim-indent-guides"
+    Plugin 'nathanaelkane/vim-indent-guides'
     " indent_guides {
         let g:indent_guides_start_level = 2
         let g:indent_guides_guide_size = 1
@@ -150,7 +148,7 @@
     " aligns imports and convert tabs into spaces using stylish-haskell
     autocmd FileType haskell nnoremap <buffer> <leader>f :%!stylish-haskell<CR>
 
-    Bundle "bling/vim-airline"
+    Plugin 'bling/vim-airline'
     " vim-airline {
         " Default in terminal vim is 'dark'
         if !exists('g:airline_theme')
@@ -159,8 +157,6 @@
         let g:airline#extensions#tabline#enabled = 1
         let g:airline_powerline_fonts = 1
     " }
-
-    "Bundle "benmills/vimux"
 
 "}
 " GUI Settings {
@@ -174,12 +170,12 @@
         set lines=40                     " 40 lines of text instead of 24
         set background=dark
         autocmd GUIEnter * set vb t_vb=  " Disable visual bell
-        if LINUX() && has("gui_running")
+        if LINUX()
             set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-        elseif OSX() && has("gui_running")
+        elseif OSX()
             set guifont=Inconsolata\ for\ Powerline:h16,Source\ Code\ Pro\ for\ Powerline:h16
-            set macmeta
-        elseif WINDOWS() && has("gui_running")
+            set macmeta " doesn't work in terminal
+        elseif WINDOWS()
             set guifont=Inconsolata\ for\ Powerline:h14,Sauce\ Code\ Powerline:h14
         endif
     else
