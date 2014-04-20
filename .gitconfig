@@ -3,6 +3,6 @@
 	email = zane.xy@live.com
 [core]
 	autocrlf = input
-	excludesfile = $HOME/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
