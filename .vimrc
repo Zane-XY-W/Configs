@@ -74,6 +74,7 @@
     Plugin 'rking/ag.vim'
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-unimpaired'
+    Plugin 'tpope/vim-fugitive'
     Plugin 'plasticboy/vim-markdown'
     " indent script tag inside html correctly
     Plugin 'vim-scripts/JavaScript-Indent'
