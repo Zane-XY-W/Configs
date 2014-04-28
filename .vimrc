@@ -127,38 +127,38 @@
     Plugin 'bitc/lushtags'
 
     Plugin 'Shougo/vimproc.vim'
+
     " haskell
-    " Plugin 'eagletmt/ghcmod-vim'
-    " autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-    " autocmd FileType haskell nnoremap <buffer> <M-=> :GhcModType<CR>
-    " autocmd FileType haskell nnoremap <buffer> <M--> :GhcModTypeClear<CR>
-
-    Plugin 'bitc/vim-hdevtools'
-    " vim-hdevtools {
-        au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-        au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
-        au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsInfo<CR>
-
-        if OSX()
+    if WINDOWS()
+        Plugin 'eagletmt/ghcmod-vim'
+        autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+        autocmd FileType haskell nnoremap <buffer> <F1> :GhcModType<CR>
+        autocmd FileType haskell nnoremap <buffer> <F2> :GhcModTypeClear<CR>
+    else
+        Plugin 'bitc/vim-hdevtools'
+        " vim-hdevtools {
+            au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+            au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+            au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsInfo<CR>
             let g:hdevtools_options = '-g-ilib -g-isrc -g-i. -g-idist/build/autogen -g-Wall -g-package-conf=.cabal-sandbox/x86_64-osx-ghc-7.6.3-packages.conf.d'
-        endif
 
-        " function! FindCabalSandboxRoot()
-        "     return finddir('.cabal-sandbox', './;')
-        " endfunction
-        "
-        " function! FindCabalSandboxRootPackageConf()
-        "     return glob(FindCabalSandboxRoot().'/*-packages.conf.d')
-        " endfunction
-        "
-        " function! SetHdevtoolsOpt()
-        "     if !empty(FindCabalSandboxRoot())
-        "         let g:hdevtools_options = '-g-ilib -g-isrc -g-i. -g-idist/build/autogen -g-Wall -g-package-conf='.FindCabalSandboxRootPackageConf()
-        "     endif
-        " endfunction
-        "
-        " autocmd FileType haskell :call SetHdevtoolsOpt()<CR>
-    " }
+            " function! FindCabalSandboxRoot()
+            "     return finddir('.cabal-sandbox', './;')
+            " endfunction
+            "
+            " function! FindCabalSandboxRootPackageConf()
+            "     return glob(FindCabalSandboxRoot().'/*-packages.conf.d')
+            " endfunction
+            "
+            " function! SetHdevtoolsOpt()
+            "     if !empty(FindCabalSandboxRoot())
+            "         let g:hdevtools_options = '-g-ilib -g-isrc -g-i. -g-idist/build/autogen -g-Wall -g-package-conf='.FindCabalSandboxRootPackageConf()
+            "     endif
+            " endfunction
+            "
+            " autocmd FileType haskell :call SetHdevtoolsOpt()<CR>
+        " }
+    endif
 
     Plugin 'dag/vim2hs'
     let g:haskell_conceal=0
