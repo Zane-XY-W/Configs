@@ -48,7 +48,7 @@
         let NERDTreeShowBookmarks=1
         let NERDTreeChDirMode=2
         let NERDTreeQuitOnOpen=1 "auto close NERDTree after open a file
-        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store', '.sock']
+        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store', '.sock', 'dist']
     " }
     Plugin 'tomtom/tcomment_vim'
     Plugin 'altercation/vim-colors-solarized'
@@ -129,36 +129,10 @@
     Plugin 'Shougo/vimproc.vim'
 
     " haskell
-    if WINDOWS()
-        Plugin 'eagletmt/ghcmod-vim'
-        autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-        autocmd FileType haskell nnoremap <buffer> <F1> :GhcModType<CR>
-        autocmd FileType haskell nnoremap <buffer> <F2> :GhcModTypeClear<CR>
-    else
-        Plugin 'bitc/vim-hdevtools'
-        " vim-hdevtools {
-            au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-            au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
-            au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsInfo<CR>
-            let g:hdevtools_options = '-g-ilib -g-isrc -g-i. -g-idist/build/autogen -g-Wall -g-package-conf=.cabal-sandbox/x86_64-osx-ghc-7.6.3-packages.conf.d'
-
-            " function! FindCabalSandboxRoot()
-            "     return finddir('.cabal-sandbox', './;')
-            " endfunction
-            "
-            " function! FindCabalSandboxRootPackageConf()
-            "     return glob(FindCabalSandboxRoot().'/*-packages.conf.d')
-            " endfunction
-            "
-            " function! SetHdevtoolsOpt()
-            "     if !empty(FindCabalSandboxRoot())
-            "         let g:hdevtools_options = '-g-ilib -g-isrc -g-i. -g-idist/build/autogen -g-Wall -g-package-conf='.FindCabalSandboxRootPackageConf()
-            "     endif
-            " endfunction
-            "
-            " autocmd FileType haskell :call SetHdevtoolsOpt()<CR>
-        " }
-    endif
+    Plugin 'eagletmt/ghcmod-vim'
+    autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+    autocmd FileType haskell nnoremap <buffer> <F1> :GhcModType<CR>
+    autocmd FileType haskell nnoremap <buffer> <F2> :GhcModTypeClear<CR>
 
     Plugin 'dag/vim2hs'
     let g:haskell_conceal=0
@@ -176,21 +150,21 @@
     " aligns imports and convert tabs into spaces using stylish-haskell
     autocmd FileType haskell nnoremap <buffer> <leader>f :%!stylish-haskell<CR>
 
-    Plugin 'scrooloose/syntastic'
-    " {
-        let g:syntastic_error_symbol = 'x'
-        let g:syntastic_warning_symbol = '!'
-        " insert Haskell LANG pragma
-        function! AddPragma()
-            let s:errArr = get(g:SyntasticLoclist.current(), '_cachedErrors')
-            for err in s:errArr
-                let s:e = get(err,'text','')
-                let s:pragma = matchlist(s:e, ' -X\(\w*\)')
-                :execute "normal ggO". printf("{-# LANGUAGE %s #-}", s:pragma[1]) . " \<Esc>"
-            endfor
-        endfunction
-        autocmd FileType haskell nmap <buffer> <leader>a :call AddPragma()<CR>
-    "}
+    " Plugin 'scrooloose/syntastic'
+    " " {
+    "     let g:syntastic_error_symbol = 'x'
+    "     let g:syntastic_warning_symbol = '!'
+    "     " insert Haskell LANG pragma
+    "     function! AddPragma()
+    "         let s:errArr = get(g:SyntasticLoclist.current(), '_cachedErrors')
+    "         for err in s:errArr
+    "             let s:e = get(err,'text','')
+    "             let s:pragma = matchlist(s:e, ' -X\(\w*\)')
+    "             :execute "normal ggO". printf("{-# LANGUAGE %s #-}", s:pragma[1]) . " \<Esc>"
+    "         endfor
+    "     endfunction
+    "     autocmd FileType haskell nmap <buffer> <leader>a :call AddPragma()<CR>
+    " "}
 
     Plugin 'bling/vim-airline'
     " vim-airline {
