@@ -73,8 +73,6 @@
     " endif
     Plugin 'rking/ag.vim'
     Plugin 'tpope/vim-surround'
-    Plugin 'tpope/vim-unimpaired'
-    Plugin 'tpope/vim-fugitive'
     Plugin 'plasticboy/vim-markdown'
     " indent script tag inside html correctly
     Plugin 'vim-scripts/JavaScript-Indent'
@@ -111,13 +109,13 @@
 
     "tabular
     Plugin 'godlygeek/tabular'
-    if exists(":Tabularize")
-        nmap <Leader>a= :Tabularize / = <CR>
-        vmap <Leader>a= :Tabularize / = <CR>
-        vmap <Leader>a- :Tabularize / -- <CR>
-        AddTabularPattern! align_type /\(^[^:]*\zs\(::\)\)\|^\s*\zs\(->\)/l1l1
-        vmap <Leader>at :Tabularize align_type<CR>
-    endif
+    " if exists(":Tabularize")
+    "     nmap <Leader>a= :Tabularize / = <CR>
+    "     vmap <Leader>a= :Tabularize / = <CR>
+    "     vmap <Leader>a- :Tabularize / -- <CR>
+    "     AddTabularPattern! align_type /\(^[^:]*\zs\(::\)\)\|^\s*\zs\(->\)/l1l1
+    "     vmap <Leader>at :Tabularize align_type<CR>
+    " endif
 
     "Plugin 'Shougo/neocomplcache'
 
@@ -129,36 +127,10 @@
     Plugin 'Shougo/vimproc.vim'
 
     " haskell
-    if WINDOWS()
-        Plugin 'eagletmt/ghcmod-vim'
-        autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-        autocmd FileType haskell nnoremap <buffer> <F1> :GhcModType<CR>
-        autocmd FileType haskell nnoremap <buffer> <F2> :GhcModTypeClear<CR>
-    else
-        Plugin 'bitc/vim-hdevtools'
-        " vim-hdevtools {
-            au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-            au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
-            au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsInfo<CR>
-            let g:hdevtools_options = '-g-ilib -g-isrc -g-i. -g-idist/build/autogen -g-Wall -g-package-conf=.cabal-sandbox/x86_64-osx-ghc-7.6.3-packages.conf.d'
-
-            " function! FindCabalSandboxRoot()
-            "     return finddir('.cabal-sandbox', './;')
-            " endfunction
-            "
-            " function! FindCabalSandboxRootPackageConf()
-            "     return glob(FindCabalSandboxRoot().'/*-packages.conf.d')
-            " endfunction
-            "
-            " function! SetHdevtoolsOpt()
-            "     if !empty(FindCabalSandboxRoot())
-            "         let g:hdevtools_options = '-g-ilib -g-isrc -g-i. -g-idist/build/autogen -g-Wall -g-package-conf='.FindCabalSandboxRootPackageConf()
-            "     endif
-            " endfunction
-            "
-            " autocmd FileType haskell :call SetHdevtoolsOpt()<CR>
-        " }
-    endif
+    Plugin 'eagletmt/ghcmod-vim'
+    autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+    autocmd FileType haskell nnoremap <buffer> <F1> :GhcModType<CR>
+    autocmd FileType haskell nnoremap <buffer> <F2> :GhcModTypeClear<CR>
 
     Plugin 'dag/vim2hs'
     let g:haskell_conceal=0
@@ -176,21 +148,22 @@
     " aligns imports and convert tabs into spaces using stylish-haskell
     autocmd FileType haskell nnoremap <buffer> <leader>f :%!stylish-haskell<CR>
 
-    Plugin 'scrooloose/syntastic'
-    " {
-        let g:syntastic_error_symbol = 'x'
-        let g:syntastic_warning_symbol = '!'
-        " insert Haskell LANG pragma
-        function! AddPragma()
-            let s:errArr = get(g:SyntasticLoclist.current(), '_cachedErrors')
-            for err in s:errArr
-                let s:e = get(err,'text','')
-                let s:pragma = matchlist(s:e, ' -X\(\w*\)')
-                :execute "normal ggO". printf("{-# LANGUAGE %s #-}", s:pragma[1]) . " \<Esc>"
-            endfor
-        endfunction
-        autocmd FileType haskell nmap <buffer> <leader>a :call AddPragma()<CR>
-    "}
+    " Plugin 'scrooloose/syntastic'
+    " " {
+    "     let g:syntastic_error_symbol = 'x'
+    "     let g:syntastic_warning_symbol = '!'
+    "     " insert Haskell LANG pragma
+    "     function! AddPragma()
+    "         let s:errArr = get(g:SyntasticLoclist.current(), '_cachedErrors')
+    "         for err in s:errArr
+    "             let s:e = get(err,'text','')
+    "             let s:pragma = matchlist(s:e, ' -X\(\w*\)')
+    "             :execute "normal ggO". printf("{-# LANGUAGE %s #-}", s:pragma[1]) . " \<Esc>"
+    "         endfor
+    "     endfunction
+    "
+    "     autocmd FileType haskell nmap <buffer> <leader>a :call AddPragma()<CR>
+    " "}
 
     Plugin 'bling/vim-airline'
     " vim-airline {
@@ -365,14 +338,20 @@
     cabbrev er e $MYVIMRC
     cabbrev sr so $MYVIMRC
     " Easier moving in tabs and windows
-    map <C-J> <C-W>j<C-W>_
-    map <C-K> <C-W>k<C-W>_
-    map <C-L> <C-W>l<C-W>_
-    map <C-H> <C-W>h<C-W>_
+    map <C-J> <C-W><C-J>
+    map <C-K> <C-W><C-K>
+    map <C-L> <C-W><C-L>
+    map <C-H> <C-W><C-H>
     " Easier horizontal scrolling
     map zl zL
     map zh zH
-    " map f1 to esc
-    map <F1> <Esc>
-    imap <F1> <Esc>
+    " cycling buffer
+    nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+    nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+
+    " resizing split
+    nnoremap <silent> <C-Right> :exe "vertical resize +5" <CR>
+    nnoremap <silent> <C-Left> :exe "vertical resize -5" <CR>
+    nnoremap <silent> <C-Up> :exe "resize -5" <CR>
+    nnoremap <silent> <C-Down> :exe "resize +5" <CR>
 " }
