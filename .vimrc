@@ -212,6 +212,8 @@
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
+    " don't show quickfix in buffers list, set number in quickfix list
+    autocmd FileType qf setlocal nobuflisted number nornu
 " }
 
 " Vim UI {
