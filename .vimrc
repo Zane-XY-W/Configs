@@ -64,13 +64,6 @@
     "}
 
     Plugin 'jiangmiao/auto-pairs'
-    "autopair keybinding in terminal
-    " if has("gui_macvim")
-    "     let g:AutoPairsShortcutToggle     = 'π' " <m-p>
-    "     let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
-    "     let g:AutoPairsShortcutJump       = '∆' " <m-j>
-    "     let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
-    " endif
     Plugin 'rking/ag.vim'
     Plugin 'tpope/vim-surround'
     Plugin 'plasticboy/vim-markdown'
@@ -84,7 +77,6 @@
     let g:pymode_lint_checkers = ['pep8']
     let g:pymode_rope = 0
     "auto format using autopep
-    "autocmd FileType python autocmd BufWritePre <buffer> :call pymode#lint#auto()
     autocmd FileType python nnoremap <buffer> <leader>f :PymodeLintAuto<CR>
 
     " scala
@@ -98,9 +90,6 @@
     let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
     let g:UltiSnipsEditSplit="horizontal"
     cabbrev es UltiSnipsEdit
-
-    " perl
-    " Plugin 'perl-support.vim'
 
     " html and js
     "Plugin 'Chiel92/vim-autoformat'
@@ -178,7 +167,7 @@
             set guifont=Inconsolata\ for\ Powerline:h16,Source\ Code\ Pro\ for\ Powerline:h16
             set macmeta " doesn't work in terminal
         elseif WINDOWS()
-            set guifont=Inconsolata\ for\ Powerline:h14,Sauce\ Code\ Powerline:h14
+            set guifont=Sauce\ Code\ Powerline:h12
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -215,6 +204,11 @@
     set history=1000                    " Store a ton of history (default is 20)
     " don't show quickfix in buffers list, set number in quickfix list
     autocmd FileType qf setlocal nobuflisted number nornu
+    " disable omni for perl
+    autocmd FileType perl set complete-=i
+
+    autocmd BufRead,BufNewFile *.pl,*.plx,*.pm command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
+    autocmd BufRead,BufNewFile *.pl,*.plx,*.pm noremap <Leader>f :Tidy<CR>
 " }
 
 " Vim UI {
@@ -308,6 +302,14 @@
 
 " Functions {
 
+    function! CopyMatches(reg)
+      let hits = []
+      %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/ge
+      let reg = empty(a:reg) ? '+' : a:reg
+      execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+    endfunction
+    command! -register CopyMatches call CopyMatches(<q-reg>)
+
  " Strip whitespace {
     function! StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
@@ -341,4 +343,9 @@
     nnoremap <silent> <C-Left> :exe "vertical resize -5" <CR>
     nnoremap <silent> <C-Up> :exe "resize -5" <CR>
     nnoremap <silent> <C-Down> :exe "resize +5" <CR>
+    " ctrl s save
+    noremap <silent> <C-S> :update<CR>
+    vnoremap <silent> <C-S> <C-C>:update<CR>
+    inoremap <silent> <C-S> <C-O>:update<CR>
+
 " }
