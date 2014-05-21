@@ -37,7 +37,7 @@
 
 "Bundles {
     " let Vundle manage Vundle, required
-    Plugin 'gmarik/vundle'
+    Plugin 'gmarik/Vundle.vim'
 
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'scrooloose/nerdtree'
@@ -145,6 +145,7 @@
             let g:airline_theme = 'solarized'
         endif
         let g:airline#extensions#tabline#enabled = 1
+        let g:airline#extensions#tabline#buffer_nr_show = 1
         let g:airline_powerline_fonts = 1
     " }
 
@@ -202,6 +203,7 @@
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
+    set noswapfile                      "let Vim trigger file event
     " don't show quickfix in buffers list, set number in quickfix list
     autocmd FileType qf setlocal nobuflisted number nornu
     " disable omni for perl
