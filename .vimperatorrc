@@ -1,0 +1,3 @@
+" CTRF+SHIFT+f searchbar
+noremap <c-s-f> :js document.getElementById("FindToolbar").close();<cr>
+inoremap <c-s-f> <esc>:js document.getElementById("FindToolbar").close();<cr>

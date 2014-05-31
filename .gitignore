@@ -9,6 +9,7 @@
 !README.md
 !.ghci
 !.perltidyrc
+!.vimperatorrc
 #It is not possible to re-include a file if a parent directory of that file is excluded.
 
 #vim configs
