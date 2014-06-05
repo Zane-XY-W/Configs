@@ -54,14 +54,16 @@ ${1:expression} while ${2:condition};
 endsnippet
 
 snippet test "Test"
-#!/usr/bin/env perl -w
+use Modern::Perl '2014';
+use Data::Dumper;
+use Test::More;
+use Capture::Tiny ':all';
 
-use strict;
-use Test::More tests => ${1:1};
-use ${2:ModuleName};
+ok(1, "beginning test");
 
-ok(${3:assertion});
+diag capture {${1}};
 
+done_testing();
 endsnippet
 
 snippet class "class"
