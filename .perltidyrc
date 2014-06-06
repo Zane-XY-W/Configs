@@ -8,5 +8,6 @@
 -vt=0 # Less vertical tightness
 -pt=2 # High parenthesis tightness
 -bt=2 # High brace tightness
+-bbt=2
 -sbt=2 # High square bracket tightness
 -isbc # Don't indent comments without leading space
