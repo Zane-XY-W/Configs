@@ -54,10 +54,10 @@
     Plugin 'altercation/vim-colors-solarized'
     Plugin 'kien/ctrlp.vim'
     " ctrlp {
-          let g:ctrlp_root_markers = ['*.cabal'] " denote project root
+          let g:ctrlp_root_markers = ['build.sbt', '*.cabal'] " denote project root
           let g:ctrlp_working_path_mode = 'ra'
           let g:ctrlp_custom_ignore = {
-              \ 'dir':  '\v[\/]\.(git|hg|svn)$|dist',
+              \ 'dir':  '\v[\/]\.(git|hg|svn)$|target|dist',
               \ 'file': '\v\.(exe|so|dll)$',
               \ 'link': 'some_bad_symbolic_links',
               \ }
@@ -83,6 +83,7 @@
     Plugin 'derekwyatt/vim-scala'
     " sbt filetype
     Plugin 'derekwyatt/vim-sbt'
+    au BufEnter *.scala setl formatprg=java\ -jar\ ~/bin/scalariform.jar\ --stdin\ --stdout
 
     "snippets
     Plugin 'SirVer/ultisnips'
