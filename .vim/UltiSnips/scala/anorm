@@ -1,0 +1,45 @@
+priority -50
+
+snippet db "db" !b
+DB.withConnection { implicit connection =>
+}
+endsnippet
+
+snippet rowp "rowParer" !b
+private val rowParser:RowParser[${VISUAL:Entity}] = {
+    get[Option[Long]]("id") ~
+    get[String]("title") ~
+    get[DateTime]("added") map {
+        case id ~ title ~ added  =>
+            Entity(id , title , added) 
+    }
+}
+endsnippet
+
+
+snippet anormi "anorm imports" !b
+import anorm._
+import anorm.SqlParser._
+import play.api.db.DB
+import play.api.Play.current
+endsnippet
+
+snippet save "anorm save" !b
+def save(r: Entry) {
+    DB.withConnection { implicit connection =>
+      SQL("""
+            INSERT INTO ENTRIES (
+                title
+            ) VALUES ({title}) 
+      """).on('title -> r.title).executeUpdate
+    }
+}
+endsnippet
+
+snippet list "anorm list" !b
+  def listAll():List[Entry] = {
+    DB.withConnection { implicit connection =>
+      SQL("SELECT * from ENTRIES ORDER BY ADDED DESC").as(entryParser *)
+    }
+  }
+endsnippet

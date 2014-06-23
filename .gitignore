@@ -16,7 +16,8 @@
 !/.vim
 /.vim/*
 !/.vim/UltiSnips
-#!/.vim/snippets/*
+/.vim/UltiSnips/*
+!/.vim/UltiSnips/scala
 
 #sbt configs
 !/.sbt
