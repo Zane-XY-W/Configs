@@ -1,7 +1,7 @@
 
 import scalariform.formatter.preferences._
 
-transitiveClassifiers := Seq("sources")
+transitiveClassifiers in Global := Seq(Artifact.SourceClassifier)
 
 addCommandAlias("f", "scalariformFormat")
 
