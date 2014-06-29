@@ -47,7 +47,7 @@
         map <leader>s :NERDTreeFind<CR>
         let NERDTreeShowBookmarks=1
         let NERDTreeChDirMode=2
-        let NERDTreeQuitOnOpen=1 "auto close NERDTree after open a file
+        "let NERDTreeQuitOnOpen=1 "auto close NERDTree after open a file
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '.DS_Store', '.sock', 'dist']
     " }
     Plugin 'tomtom/tcomment_vim'
@@ -66,9 +66,10 @@
     Plugin 'jiangmiao/auto-pairs'
     Plugin 'rking/ag.vim'
     Plugin 'tpope/vim-surround'
+
     Plugin 'plasticboy/vim-markdown'
-    " indent script tag inside html correctly
-    Plugin 'vim-scripts/JavaScript-Indent'
+    let g:vim_markdown_folding_disabled=1
+
     " python
     Plugin 'klen/python-mode'
     let g:pymode_lint_on_write = 0
@@ -91,11 +92,6 @@
     let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
     let g:UltiSnipsEditSplit="horizontal"
     cabbrev es UltiSnipsEdit
-
-    " html and js
-    "Plugin 'Chiel92/vim-autoformat'
-    "Plugin 'einars/js-beautify'
-    "Plugin "pangloss/vim-javascript"
 
     "tabular
     Plugin 'godlygeek/tabular'
@@ -290,7 +286,6 @@
     autocmd FileType python,haskell,scala,vim,sh autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
 
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
-    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
     autocmd BufNewFile,BufRead *.hs setlocal cursorcolumn
     autocmd BufNewFile,BufRead *.cabal setlocal cursorcolumn
     autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
@@ -304,6 +299,10 @@
 " }
 
 " Functions {
+    function! FormatRoute()
+       % Tabularize /^[^\/]*\zs\/.*/l5
+       % Tabularize /controllers.*/l10
+    endfunction
 
     function! CopyMatches(reg)
       let hits = []
