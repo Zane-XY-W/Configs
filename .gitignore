@@ -15,9 +15,10 @@
 #vim configs
 !/.vim
 /.vim/*
-!/.vim/UltiSnips
-/.vim/UltiSnips/*
-!/.vim/UltiSnips/scala
+!/.vim/UltiSnips/*
+/.vim/UltiSnips/.DS_Store
+
+
 
 #sbt configs
 !/.sbt

@@ -1,0 +1,33 @@
+
+snippet formi "form imports" b
+import play.api.data._
+import play.api.data.Forms._
+endsnippet
+
+snippet form "form" b
+val userForm = Form(
+  mapping(
+    "name" -> text,
+    "age" -> number
+  )(UserData.apply)(UserData.unapply)
+)
+endsnippet
+
+snippet formv "form validation" b
+userForm.bindFromRequest.fold(
+  formWithErrors => {
+    // binding failure, you retrieve the form containing errors:
+    BadRequest(views.html.user(formWithErrors))
+  },
+  userData => {
+    /* binding success, you get the actual value. */
+    val newUser = models.User(userData.name, userData.age)
+    val id = models.User.create(newUser)
+    Redirect(routes.Application.home(id))
+  }
+)
+endsnippet
+
+snippet formdoc "formdoc" b
+:r !curl https://raw.githubusercontent.com/playframework/playframework/master/documentation/manual/scalaGuide/main/forms/ScalaForms.md
+endsnippet
