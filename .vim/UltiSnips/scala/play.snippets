@@ -4,7 +4,16 @@ import play.api.data._
 import play.api.data.Forms._
 endsnippet
 
-snippet form "form" b
+snippet formt "form tuple" b
+val userF = Form(
+  tuple(
+    "name" -> text,
+    "age" -> number
+  ) // tuples come with built-in apply/unapply
+)
+endsnippet
+
+snippet formm "form mapping" b
 val userForm = Form(
   mapping(
     "name" -> text,
