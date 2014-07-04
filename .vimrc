@@ -146,6 +146,9 @@
         let g:airline_powerline_fonts = 1
     " }
 
+    Plugin 'danchoi/elinks.vim'
+    Plugin 'vim-scripts/bufkill.vim'
+
     call vundle#end()            " required
 "}
 " GUI Settings {
