@@ -146,8 +146,13 @@
         let g:airline_powerline_fonts = 1
     " }
 
-    Plugin 'danchoi/elinks.vim'
+    " Plugin 'danchoi/elinks.vim'
     Plugin 'vim-scripts/bufkill.vim'
+
+    Plugin 'mattn/emmet-vim'
+
+    "correct javascript indent
+    Plugin 'pangloss/vim-javascript'
 
     call vundle#end()            " required
 "}

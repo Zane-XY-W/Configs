@@ -1,3 +1,9 @@
 " CTRF+SHIFT+f searchbar
 noremap <c-s-f> :js document.getElementById("FindToolbar").close();<cr>
 inoremap <c-s-f> <esc>:js document.getElementById("FindToolbar").close();<cr>
+noremap <C-v> <C-v><C-v> 
+inoremap <C-v> <C-v><C-v> 
+cnoremap <C-v> <C-v><C-v> 
+noremap <C-c> <C-v><C-c> 
+inoremap <C-c> <C-v><C-c> 
+cnoremap <C-c> <C-v><C-c>
