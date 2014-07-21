@@ -146,7 +146,6 @@
         let g:airline_powerline_fonts = 1
     " }
 
-    Plugin 'danchoi/elinks.vim'
     Plugin 'vim-scripts/bufkill.vim'
 
     call vundle#end()            " required
@@ -168,7 +167,7 @@
             set guifont=Inconsolata\ for\ Powerline:h16,Source\ Code\ Pro\ for\ Powerline:h16
             set macmeta " doesn't work in terminal
         elseif WINDOWS()
-            set guifont=Sauce\ Code\ Powerline:h12
+            set guifont=Source\ Code\ Pro\ Light:h11
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -352,5 +351,4 @@
     noremap <silent> <C-S> :update<CR>
     vnoremap <silent> <C-S> <C-C>:update<CR>
     inoremap <silent> <C-S> <C-O>:update<CR>
-
 " }
